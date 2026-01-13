@@ -1,14 +1,16 @@
 import express from "express";
 import dotenv from "dotenv";
-import usersRouter from "./routes/users";
+import usersRouter from "./routes/get-users.js";
+import addUsersRouter from "./routes/add-users.js";
 
 dotenv.config();
 
-const app = express();
-app.use(express.json()); // parse JSON bodies
+const app: express.Application = express();
+app.use(express.json());
 
 // routes
-app.use("/users", usersRouter);
+app.use("/get-users", usersRouter);
+app.use("/add-users", addUsersRouter);
 
 // error middleware global
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
