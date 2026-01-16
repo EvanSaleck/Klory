@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    env_file:
+      - ./.env
+    volumes:
+      - db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - "${API_PORT}:3001"
+    env_file:
+      - ./.env
+    volumes:
+      - ./API:/app:cached
+      - /app/node_modules
+    depends_on:
+      - db
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./FRONT
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "${FRONT_PORT}:3000"
+    env_file:
+      - ./.env
+    volumes:
+      - ./FRONT:/app:cached
+      - /app/node_modules
+    depends_on:
+      - api
+    command: npm run dev
+
+volumes:
+  db-data:
