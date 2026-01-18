@@ -1,19 +1,36 @@
 import { Router } from 'express';
 import { users } from '../db/schema.js';
 import { db } from '../index.js';
+import bcrypt from 'bcrypt';
+const saltrounds = 12;
 
 const router: Router = Router();
 
 router.post('/', async (req, res) => {
-    const { username, email } = req.body;
-    if (!username || !email) {
-        return res.status(400).json({ error: 'Username and email are required' });
+    const { username, email, password, name, lastname, weight, height, birthdate } = req.body;
+
+    if (!username || !email || !password) {
+        return res.status(400).json({ error: 'Username, email, and password are required' });
     }
+
     try {
-        await db.insert(users).values({ username, email });
+        const hashedPassword = await bcrypt.hash(password, saltrounds);
+
+        await db.insert(users).values({ 
+            username, 
+            email, 
+            password: hashedPassword, 
+            name: name || "", 
+            lastname: lastname || "", 
+            weight: weight || "", 
+            height: height || "", 
+            birthdate: birthdate || "" 
+        });
+
         res.json({ message: 'User added successfully' });
     } catch (error) {
-        res.status(500).json({ error: error });
+        console.error(error); // Good to log the error to console for debugging
+        res.status(500).json({ error: 'Failed to create user' });
     }
 });
 

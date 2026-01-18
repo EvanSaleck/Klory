@@ -1,4 +1,4 @@
-import { pgTable, integer, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, integer, serial, text, timestamp, real, date } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
     userID: serial("user_id").primaryKey().notNull(),
@@ -7,9 +7,9 @@ export const users = pgTable("users", {
     password: text("password").notNull(),
     name: text("name").notNull(),
     lastname: text("lastname").notNull(),
-    weight: text("weight").notNull(),
-    height: text("height").notNull(),
-    birthdate: text("birthdate").notNull(),
+    weight: real("weight").notNull(),
+    height: integer("height").notNull(),
+    birthdate: date("birthdate").notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow()
 });
