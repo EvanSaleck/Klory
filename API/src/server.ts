@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import usersRouter from "./routes/get-users.js";
 import addUsersRouter from "./routes/add-users.js";
-import loginRouter from "./routes/login.js";
+import loginRouter from "./routes/login.ts";
 
 dotenv.config();
 

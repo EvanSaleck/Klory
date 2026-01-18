@@ -7,9 +7,6 @@ import * as jose from 'jose'; // Import jose
 
 const router = Router();
 
-const SECRET_KEY = new TextEncoder().encode(
-    process.env.JWT_SECRET); 
-
 router.post('/', async (req, res) => {
     const { email, password } = req.body;
 
@@ -18,6 +15,10 @@ router.post('/', async (req, res) => {
     }
 
     try {
+        const SECRET_KEY = new TextEncoder().encode(
+            process.env.JWT_SECRET);
+
+            
         const [user] = await db.select()
             .from(users)
             .where(eq(users.email, email))
@@ -34,10 +35,10 @@ router.post('/', async (req, res) => {
         }
 
         const token = await new jose.SignJWT({ userID: user.userID })
-            .setProtectedHeader({ alg: 'HS256' }) 
+            .setProtectedHeader({ alg: 'HS256' })
             .setIssuedAt()
             .setExpirationTime('24h')
-            .sign(SECRET_KEY);        
+            .sign(SECRET_KEY);
 
         res.status(201).json({
             message: 'Session created',
