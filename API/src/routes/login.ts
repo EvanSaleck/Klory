@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm';
 import bcrypt from 'bcrypt';
 import * as jose from 'jose'; // Import jose
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/', async (req, res) => {
     const { email, password } = req.body;
