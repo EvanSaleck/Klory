@@ -7,28 +7,6 @@
 
 @theme {
 
-  --spacing-xs: max(14px, calc(15vw / 19.2));
-  --spacing-sm: max(18px, calc(25vw / 19.2));
-  --spacing-md: max(18px, calc(50vw / 19.2));
-  --spacing-lg: max(60px, calc(100vw / 19.2));
-  --spacing-xl: max(80px, calc(200vw / 19.2));
-  --spacing-gutter: max(80px, calc(150vw / 19.2));
-
-  --text-sm: clamp(14px, calc(16vw / 19.2), 16px);
-  --text-base: clamp(16px, calc(20vw / 19.2), 20px);
-  --text-md: clamp(20px, calc(30vw / 19.2), 30px);
-  --text-lg: clamp(30px, calc(50vw / 19.2), 50px);
-  --text-xl: clamp(40px, calc(70vw / 19.2), 70px);
-
-  --font-lato: "lato", sans-serif;
-  --font-pt-serif: "pt-serif", serif;
-  --font-suse: "suse", sans-serif;
-
-  --color-primary: oklch(0.3063 0.0814 248.58);
-  --color-primary-foreground: white;
-
-  --color-secondary: oklch(0.7891 0.1641 71.84);
-  --color-secondary-foreground: white;
 }
 
 body {
