@@ -14,9 +14,10 @@ function Login() {
     password: ''
   });
 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState: { email: string; password: string }) => ({
       ...prevState,
       [name]: value
     }));
@@ -64,11 +65,11 @@ function Login() {
           <form id="login-form" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">Email ou Pseudonyme</Label>
                 <Input
                   id="email"
                   name="email"
-                  type="email"
+                  type="text"
                   required
                   // 6. Lier l'input au State
                   value={formData.email}
